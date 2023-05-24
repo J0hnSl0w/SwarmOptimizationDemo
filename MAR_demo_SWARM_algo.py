@@ -1,5 +1,4 @@
 import argparse
-import math
 import random
 import numpy as np
 from matplotlib import pyplot as plt
@@ -21,7 +20,6 @@ class SwarmAlgoDemo:
         """
 
         self.population = population
-        self.dimension = dimension
         self.min_pos = position_min
         self.max_pos = position_max
         self.num_of_gens = generation
@@ -48,7 +46,7 @@ class SwarmAlgoDemo:
 
         # Populáció definiálása
         self.particles = [
-            [random.uniform(self.min_pos, self.max_pos) for j in range(self.dimension)] for i in range(self.population)
+            [random.uniform(self.min_pos, self.max_pos) for j in range(2)] for i in range(self.population)
         ]
 
         # Részecskék kezdő pozíciója, később legjobb pozíció
@@ -64,7 +62,7 @@ class SwarmAlgoDemo:
         self.gbest_position = self.pbest_position[gbest_index]
 
         # A részecskék sebessége (0-tól kezdve)
-        self.velocity = [[0.0 for j in range(self.dimension)] for i in range(self.population)]
+        self.velocity = [[0.0 for j in range(2)] for i in range(self.population)]
 
     def __init_plot(self):
         """
@@ -218,7 +216,6 @@ class SwarmAlgoDemo:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--population', required=False, type=int, default=80)
-    parser.add_argument('-d', '--dimension', required=False, type=int, default=2)
     parser.add_argument('-i', '--position_min', required=False, type=float, default=-100.0)
     parser.add_argument('-a', '--position_max', required=False, type=float, default=100.0)
     parser.add_argument('-g', '--generation', required=False, type=int, default=100)
@@ -229,7 +226,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    demo = SwarmAlgoDemo(args.population, args.dimension, args.position_min, args.position_max, args.generation,
+    demo = SwarmAlgoDemo(args.population, args.position_min, args.position_max, args.generation,
                          args.fitness_criterion)
 
     demo.run_optimization()
