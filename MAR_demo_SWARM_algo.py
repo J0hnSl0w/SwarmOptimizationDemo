@@ -6,13 +6,12 @@ from matplotlib import animation
 
 
 class SwarmAlgoDemo:
-    def __init__(self, population: int, dimension: int, position_min: float, position_max: float, generation: int,
+    def __init__(self, population: int, position_min: float, position_max: float, generation: int,
                  fitness_criterion: float):
         """
         Demó szkript a SWARM algorimtus implementálásával.
 
         :param population: A populáció mérete
-        :param dimension:  A részecskék pocíziójának skálázása
         :param position_min: Minimum pozíció
         :param position_max: Maximum pozíció
         :param generation: Generűciók maximális száma, ami alatt meg kell találni az optimumot
@@ -141,13 +140,13 @@ class SwarmAlgoDemo:
         return new_particle
 
     def _calc_fitness(self):
-        # Calculate the fitness value
+        # Legjobb illeszkedés számítása
         self.pbest_fitness = [self._fitness_function(p[0], p[1]) for p in self.particles]
 
-        # Find the index of the best particle
+        # A legjobban illeszkedő adatok indexének kikeresése
         self.gbest_index = np.argmin(self.pbest_fitness)
 
-        # Update the position of the best particle
+        # A legjobban illeszkedő részecske pozíciója
         self.gbest_position = self.pbest_position[self.gbest_index]
 
     def _print_results(self, loop_back_index):
@@ -209,8 +208,8 @@ class SwarmAlgoDemo:
                     # (Rész)eredmények megjelenítése konzolon
                     self._print_results(t)
 
-            self._add_to_plot()
-            self._calc_fitness()
+            self._add_to_plot()  # Részeredmények hozzáadasa az ábrához.
+            self._calc_fitness()  # A kritérium ellenőrzése.
 
 
 if __name__ == '__main__':
